@@ -2,254 +2,218 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>【异路功名】流年五行测算 | 原创算法</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="author" content="异路功名">
-    <meta name="description" content="原创0-9数字流年算法，流年参考解读">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【异路功名】流年五行测算</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: "Microsoft YaHei", Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f0f2f5;
-        }
-        .brand-header {
-            text-align: center;
-            padding: 15px 0;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #2c3e50;
-        }
-        .brand-logo {
-            font-size: 26px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .brand-slogan {
-            font-size: 14px;
-            color: #666;
-            margin-top: 8px;
-        }
-        .input-group {
-            margin: 18px 0;
-        }
-        label {
-            display: inline-block;
-            width: 80px;
-            font-weight: bold;
-            color: #333;
-        }
-        input {
-            padding: 12px;
-            width: calc(100% - 90px);
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 18px;
-            margin: 15px 0 25px;
-        }
-        button:hover {
-            background-color: #34495e;
-        }
-        #result {
-            background-color: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-        }
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 18px;
-            color: #2c3e50;
-            text-align: center;
-        }
-        .interpretation {
-            line-height: 1.8;
-            margin: 12px 0;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 3px solid #2c3e50;
-        }
-        .guide {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-            font-size: 14px;
-            line-height: 1.7;
-            color: #333;
-        }
-        .guide ol {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-        .guide li {
-            margin: 8px 0;
-        }
-        .guide .conclusion {
-            margin-top: 12px;
-            font-weight: bold;
-            color: #2c3e50;
-            text-align: center;
-        }
-        .wechat-footer {
-            margin-top: 25px;
-            padding: 20px;
-            text-align: center;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-        }
-        .wechat-info {
-            font-size: 15px;
-            color: #333;
-            margin: 8px 0;
-        }
-        .wechat-highlight {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .note {
-            font-size: 12px;
-            color: #999;
-            margin-top: 15px;
-            font-style: italic;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
+        body { background: #f5f5f5; padding: 40px 20px; line-height: 1.8; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #333; font-size: 28px; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 30px; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #555; font-weight: 500; font-size: 16px; }
+        input, select { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+        button { width: 100%; padding: 14px; background: #2d3748; color: white; border: none; border-radius: 4px; font-size: 18px; cursor: pointer; margin-top: 10px; }
+        .result-box { margin-top: 30px; padding: 25px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #2d3748; display: none; }
+        .result-section { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .result-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .result-section h3 { color: #2d3748; margin-bottom: 15px; font-size: 18px; }
+        .result-item { margin-bottom: 12px; color: #333; }
+        strong { color: #2d3748; }
+        .level-tag { display: inline-block; padding: 3px 8px; border-radius: 4px; margin-left: 8px; font-size: 14px; }
+        .level-1 { background: #e8f4f8; color: #4299e1; }
+        .level-2 { background: #f0f8fb; color: #38b2ac; }
+        .level-3 { background: #fef7fb; color: #e53e3e; }
+        .advantage { color: #48bb78; }
+        .disadvantage { color: #ed8936; }
+        .footer-tip { margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 4px; font-size: 14px; color: #666; line-height: 2; }
+        .footer-tip p { margin-bottom: 10px; }
+        .footer-tip .motto { font-style: italic; color: #2d3748; text-align: center; margin-top: 15px; }
+        .author-info { margin-top: 20px; padding: 15px; background: #fff5f5; border-radius: 4px; font-size: 14px; text-align: center; }
+        .author-info .wechat { color: #e53e3e; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="brand-header">
-        <div class="brand-logo">【异路功名】流年五行测算</div>
-        <div class="brand-slogan">原创0-9数字算法 | 理性参考 随缘交流</div>
-    </div>
+    <div class="container">
+        <h1>【异路功名】流年五行测算</h1>
+        <div class="subtitle">原创0-9数字算法 | 理性参考 随缘交流</div>
+        
+        <div class="input-group">
+            <label for="gender">性别</label>
+            <select id="gender" required>
+                <option value="">请选择</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
 
-    <div class="input-group">
-        <label>出生年：</label>
-        <input type="number" id="year" placeholder="如1990" value="1990" required>
-    </div>
-    <div class="input-group">
-        <label>出生月：</label>
-        <input type="number" id="month" placeholder="如5" value="5" required>
-    </div>
-    <div class="input-group">
-        <label>出生日：</label>
-        <input type="number" id="day" placeholder="如20" value="20" required>
-    </div>
+        <div class="input-group">
+            <label for="birthYear">出生年 (阳历):</label>
+            <input type="text" id="birthYear" placeholder="如：1990" required>
+        </div>
+        <div class="input-group">
+            <label for="birthMonth">出生月 (阳历):</label>
+            <input type="text" id="birthMonth" placeholder="如：5" required>
+        </div>
+        <div class="input-group">
+            <label for="birthDay">出生日 (阳历):</label>
+            <input type="text" id="birthDay" placeholder="如：20" required>
+        </div>
 
-    <button onclick="calculate()">开始测算</button>
+        <button onclick="calculateDestiny()">开始测算</button>
 
-    <div id="result"></div>
+        <div class="result-box" id="resultBox">
+            <div class="result-section">
+                <h3>先天格局</h3>
+                <div class="result-item">
+                    <strong class="advantage">先天优势</strong>：<span id="advantage"></span>
+                </div>
+                <div class="result-item">
+                    <strong class="disadvantage">先天劣势</strong>：<span id="disadvantage"></span>
+                </div>
+                <div class="result-item">
+                    <strong>先天星曜</strong>：<span id="star"></span>
+                </div>
+            </div>
+            <div class="result-section">
+                <h3>流年运势</h3>
+                <div class="result-item">
+                    <strong>流年主运</strong>：<span id="mainLuck"></span>
+                    <span id="levelTag" class="level-tag"></span>
+                </div>
+                <div class="result-item">
+                    <strong>核心提示</strong>：<span id="coreTip"></span>
+                </div>
+            </div>
+        </div>
 
-    <div class="guide">
-        以上内容仅供参考，同名不同命，需结合自身理性判断。
-        <ol>
-            <li><strong>命理的价值在于调整</strong>：若有警示，宜多加留意，提前准备，防患于未然。</li>
-            <li><strong>命运是动态的博弈</strong>：它不是一成不变的定数，而是可以通过当下的选择和行动去影响和改变的。</li>
-            <li><strong>它是一个参考坐标系</strong>：可以用来观照生活，但绝非躺平的理由。积极的心态和主动的作为，永远是把握人生的关键。</li>
-        </ol>
-        <div class="conclusion">人求上进，皆由己出；因缘而聚，因运而生。</div>
-    </div>
+        <div class="footer-tip">
+            <p>以上内容仅供参考，同名不同命，需结合自身理性判断。</p>
+            <p>1. 命理的价值在于调整：若有警示，宜多加留意，提前准备，防患于未然。</p>
+            <p>2. 命运是动态的博弈：它不是一成不变的定数，而是可以通过当下的选择和行动去影响和改变的。</p>
+            <p>3. 它是一个参考坐标系：可以用来观照生活，但绝非躺平的理由。积极的心态和主动的作为，永远是把握人生的关键。</p>
+            <div class="motto">人求上进，皆由己出；因缘而聚，因运而生。</div>
+        </div>
 
-    <div class="wechat-footer">
-        <div class="wechat-info">作者微信：<span class="wechat-highlight">异路功名（jinzhixiu556677）</span></div>
-        <div class="note">本工具为原创内容，转载请注明出处</div>
+        <div class="author-info">
+            作者微信：<span class="wechat">异路功名 (jinzhixiu556677)</span><br>
+            本工具为原创内容，转载请注明出处
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/seedrandom@3.0.5/seedrandom.min.js"></script>
     <script>
-        const RESULT_MAP = {
-            '水0':'心神失智 情聚(短期) 妻与人通 肾病 言语招灾 男丁大凶',
-            '水1':'去年事成 运平平 亲友助 业小吉（利考试求职）女主外奔（日后之害）',
-            '水2':'车船行财利 可遇佳人 情事恶（误一生） 不义之财 远行后大祸 狐朋狗友下道',
-            '水3':'诸月不安(受惊) 女亲病 财稳固 近人自戕 外借受损 入恶业速脱身',
-            '水4':'与人共事(定失利) 病得愈 资本升值 儿女吉事 意外得失 体衰',
-            '水5':'家大多变 主事得权（升职） 长男贵助(提携) 长辈病 喜庆之事 正道则安',
-            '水6':'贵人大助（己识） 子女凶 科甲 婚难 驿马旅行（动）助人己不愿 （绊） 多缘者恶来 缘淡者善来',
-            '水7':'多结缘(虚难成) 子女远离 劳而不成 恶情来 精神不利(深陷某事) 与人谋事(速成)',
-            '水8':'男女不正 血亲死 情缘短(偏财难占) 败运 富贵一方 无家所归',
-            '水9':'产贵女(女大贵) 天缘 女儿大利 色容衰(大) 男子谋害 死于家外 少夭老绝 鼠目寸光 浊',
-            '火0':'流产 无人从言 出行灾(夜路) 血光(一二小三四大) 己身病危 身陷牢狱',
-            '火1':'正财难存（多偏财） 家积财 刑伤之害 父母凶（空散）晚婚（婚不利） 好与人斗凶',
-            '火2':'房屋损坏 人走失 私通 新的目标 事不定疑虑 凶中逢吉',
-            '火3':'稳固之财(工作安顺) 久忧除 亲连祸(家不静) 上司合意 结交官贵 友反目',
-            '火4':'男取劣妻 误伤需手术 得罪他人 与人和伙大利 小耗 家有祸',
-            '火5':'投资返利(远多近少) 夫妻争斗(同事不和) 长辈病亡 地位提高 投资失败债台高筑 运旺者衰 运衰者旺',
-            '火6':'贵人自来 刑狱(男大不利) 爱人得病 自身祸财 病三高加重 财利旺',
-            '火7':'顺成大事（大反转） 他人大骗 心脑血管疾病* 戴孝(重丧实) 得权 女夫富贵',
-            '火8':'公职(大升) 邪病(阴来侵) 虚妄假成 挚友凶祸(靠山倒) 死离 言语招凶',
-            '火9':'大名利(声名鹤立) 暴富(多险) 大运成事(实) 百日死 内大乱(妻妾残己) 伤己伤众 刚愎自负 暴',
-            '金0':'母病 工作难安 性懦弱(反复) 财物丢失 谋望无成 偏房',
-            '金1':'烦事稍解 无财 职业多变 他人背叛 秋小吉 学业不利',
-            '金2':'家易搬家 凶化吉(富贵) 机复返 夫妻失和 意外遇险 得人财而资',
-            '金3':'子女多难 积钱财 外出得利 丑事外露（丢人现眼） 人生晋升 他人机而让己',
-            '金4':'事成而后凶 公职得利 财减(冲动胡为) 情(良后必反) 亲朋借取 哭多抑郁',
-            '金5':'财(他人送) 升职(多事吉) 他人欺辱 母妻刑克 结贵友 生发之机',
-            '金6':'名利起伏 转运 心情多变 喜得妻财（配偶富或贵） 多疑坏事 耐心成反凶',
-            '金7':'目疾 大名利 积家业屯钱财 心事重重 事半成进退两难 夜难眠 多安者三载败 多凶者三载荣',
-            '金8':'事业升(巅峰) 得子女 大血光(突发病) 为事所困 讼必败 婚易再婚',
-            '金9':'财(大) 名利损(善名) 让权(己退) 子孙败家 内臟短无 遗产破败 外荣内耻 破即咫尺 钝',
-            '土0':'失人助 他人诋毁 心神恍惚 四处流浪 难以安生 改行',
-            '土1':'一笔财（一为数） 良缘 多迁徙(家宅不静) 至亲意外 烦事不断 外出患病',
-            '土2':'巧得利 房地之机 喜(主婚姻) 数次远行 升迁之机 科考工职之利',
-            '土3':'结姻牵红 亲富贵(子女媳婿) 财减外拿 搬入新屋 悔恨 分离之相',
-            '土4':'手术 婚姻难相 买卖(房产) 近忧解 季交喜来 夏遇友',
-            '土5':'小病霍财 得财吉(返利) 得权升官 牢狱半途 七八月事动则破（妻不随心） 心善者再进老得安 心恶者连退老而独',
-            '土6':'在成家 假亲贵 人远离(因财) 女大害 情散 得禄',
-            '土7':'房产多利 子女半折 祸财百日 背祖离乡 家庭破裂 横死',
-            '土8':'官升财失 遇女祸(损财) 贱卖财物 家人费钱 子女刑 退隐之相',
-            '土9':'心愿成(近损大利) 不辨事非 破财一年 财还他人 人生低谷 心智不明 自得自果 愚',
-            '木0':'病灾不断 孕妇大凶 家亲不顾 学无成辍学 难安身(诸事多变) 子女大凶',
-            '木1':'女嫁劣夫 父母难养(病废) 远行损利 小利小喜 债务 田宅是非',
-            '木2':'家宅变动 桃花凶 出行不遂 事多变多进 随朋而禍 父母不睦',
-            '木3':'订婚 友相争 诈骗上当 轻生(男女皆是) 酒宴喜庆 大耗',
-            '木4':'夏秋凶 遇贵人得救 与长辈不和 事事不可放纵 独成友多则败 事有拖拉慢成家业',
-            '木5':'配偶晋升(进大产) 房租得利  (恶情)小人纠缠 事业上升 骨折摔难  结婚（初吉）',
-            '木6':'得遗业 不明不白 官司(不吉) 出轨 女主妾小（暗合） 停滞不前 有势者渐缓 无势者渐长',
-            '木7':'富来难长 与财他人(外)  生别 支出甚大 再得子女 偏财不长',
-            '木8':'女多情 残病 冲上位(官连升) 猝死 倒卖大利 众小人谋己利',
-            '木9':'官升财进(大) 大事就 生死之难 病入膏肓 名利与他 卖资本 不知固根 一味痴进 急'
-        };
+        // 1. 先天格局库（含优势、劣势、星曜）
+        const destinyData = [
+            { 
+                advantage: "贵人运旺盛，家庭关系和睦，事业易获外戚助力，安家立业顺遂",
+                disadvantage: "易遇小人是非，偶尔错失机遇，存在轻微破财或口舌之争",
+                star: "天乙星：易得贵人扶持，事业遇困时有转机"
+            },
+            { 
+                advantage: "财运顺遂，事业上升势头明显，正财偏财皆有收获，贵人扶持力度大",
+                disadvantage: "男性易因事业忽略家庭，女性易遇情感阻碍，需防冲动决策",
+                star: "天福星：财运亨通，正财偏财皆顺"
+            },
+            { 
+                advantage: "洞察力强，能提前规避部分风险，关键时刻有破局能力",
+                disadvantage: "人际矛盾较多，家庭易起争执，健康需防内疾，财运波动较大",
+                star: "天阴星：易犯小人，需防背后是非"
+            },
+            { 
+                advantage: "缘分机遇较多，社交圈子广，适合拓展人脉资源",
+                disadvantage: "易陷入声色犬马之困，理财能力弱，易欠债借钱，需防败家风险",
+                star: "天杀星：易遇意外，需注重安全"
+            },
+            { 
+                advantage: "异性缘佳，家庭氛围融洽，子女运顺遂，生活安稳富足",
+                disadvantage: "易浪费钱财，机遇来临时常错失，需防轻微口舌是非",
+                star: "天盈星：异性缘旺，感情顺遂"
+            },
+            { 
+                advantage: "智慧出众，创意十足，学习能力强，适合深耕技术或学术",
+                disadvantage: "事业易遇瓶颈，感情易生隔阂，健康需防内疾，易遭小人暗算",
+                star: "天破星：事业易遇瓶颈，需另寻出路"
+            },
+            { 
+                advantage: "行动力强，才华能得到充分施展，运势上升期突破明显",
+                disadvantage: "运势起伏较大，易因急躁错失良机，需防人际是非影响事业",
+                star: "天晦星：运势有起伏，需耐心等待"
+            },
+            { 
+                advantage: "意志力坚定，抗压能力强，关键时刻能坚守底线",
+                disadvantage: "家庭关系不睦，健康易出问题，易败家涉赌，需防日后灾祸",
+                star: "天牢星：易陷困境，需坚守本心"
+            },
+            { 
+                advantage: "事业稳步发展，财运稳定，安家立业顺遂，贵人暗中相助",
+                disadvantage: "易遇小人口舌，偶尔情绪低落，需防轻微破财",
+                star: "天尊星：事业平稳，稳步上升"
+            },
+            { 
+                advantage: "孝顺长辈，家庭和睦，子女运佳，投资易获利，健康状况良好",
+                disadvantage: "需防官司是非，言行需谨慎，易遇外戚相关的小阻碍",
+                star: "天孝星：孝顺长辈，家庭和睦"
+            }
+        ];
 
-        function getRandomUnique(arr, n) {
-            const shuffled = [...arr].sort(() => Math.random() - 0.5);
-            return shuffled.slice(0, Math.min(n, arr.length));
+        // 2. 流年运势库（含1-3级分级）
+        const luckData = [
+            { level: 1, type: "吉", content: "流年顺遂，正财稳定，生活平顺无波澜，小惊喜不断" },
+            { level: 1, type: "凶", content: "小破财不断，人际遇轻微是非，做事多有阻滞但无大碍" },
+            { level: 2, type: "吉", content: "贵人运旺盛，事业遇重要机遇，偏财有意外收获，感情顺遂" },
+            { level: 2, type: "凶", content: "工作压力大，家庭易起争执，健康出现小状况，需谨慎应对" },
+            { level: 2, type: "吉", content: "技能提升见效快，副业收入增加，人际关系和谐，出行平安" },
+            { level: 2, type: "凶", content: "投资易亏损，合作出现裂痕，小人作祟影响心情，运势起伏" },
+            { level: 3, type: "吉", content: "大运流年皆吉，事业迎来重大突破，财运爆棚，家庭添喜" },
+            { level: 3, type: "凶", content: "流年犯忌神，事业遇重大阻碍，破财风险高，健康需重点防护" },
+            { level: 1, type: "吉", content: "家庭和睦，子女学业/事业进步，邻里关系融洽，无烦忧之事" },
+            { level: 1, type: "凶", content: "出行小不顺，办事多拖延，情绪波动大，易与他人起口角" }
+        ];
+
+        // 3. 核心随机逻辑
+        function getRandomWithSeed(seed, max) {
+            const rng = new Math.seedrandom(seed);
+            return Math.floor(rng() * max);
         }
 
-        function calculate() {
-            const year = parseInt(document.getElementById('year').value) || 1990;
-            const month = parseInt(document.getElementById('month').value) || 5;
-            const day = parseInt(document.getElementById('day').value) || 20;
+        // 4. 测算主函数
+        function calculateDestiny() {
+            const gender = document.getElementById("gender").value;
+            const year = document.getElementById("birthYear").value;
+            const month = document.getElementById("birthMonth").value;
+            const day = document.getElementById("birthDay").value;
+            const resultBox = document.getElementById("resultBox");
+
+            if (!gender || !year || !month || !day) {
+                alert("请填写所有信息！");
+                return;
+            }
+
+            // 生成唯一种子
+            const seed = gender + year + month + day;
+
+            // 获取随机结果
+            const destinyIndex = getRandomWithSeed(seed, destinyData.length);
+            const selectedDestiny = destinyData[destinyIndex];
             
-            const seed = `${year}${month}${day}`;
-            const rng = new Math.seedrandom(seed);
-            Math.random = rng;
+            const luckIndex = getRandomWithSeed(seed + "luck", luckData.length);
+            const selectedLuck = luckData[luckIndex];
 
-            const keys = Object.keys(RESULT_MAP);
-            const randomKeys = getRandomUnique(keys, 3);
+            // 填充结果
+            document.getElementById("advantage").innerText = selectedDestiny.advantage;
+            document.getElementById("disadvantage").innerText = selectedDestiny.disadvantage;
+            document.getElementById("star").innerText = selectedDestiny.star;
+            
+            document.getElementById("mainLuck").innerText = selectedLuck.content;
+            document.getElementById("levelTag").innerText = selectedLuck.level + "级";
+            document.getElementById("levelTag").className = `level-tag level-${selectedLuck.level}`;
+            document.getElementById("coreTip").innerText = selectedLuck.type === "吉" ? 
+                "本年运势上扬，宜主动出击把握机遇。" : 
+                "本年运势多阻，宜稳守为主，避免冒进。";
 
-            let resultHtml = `<div class="title">流年测算结果</div>`;
-            randomKeys.forEach((key, index) => {
-                resultHtml += `<div class="interpretation">${index + 1}. ${RESULT_MAP[key]}</div>`;
-            });
-
-            document.getElementById('result').innerHTML = resultHtml;
+            // 显示结果
+            resultBox.style.display = "block";
         }
     </script>
 </body>
